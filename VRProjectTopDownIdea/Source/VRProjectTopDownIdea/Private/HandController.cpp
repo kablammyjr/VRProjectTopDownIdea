@@ -33,6 +33,11 @@ void AHandController::Tick(float DeltaTime)
 
 	if (bIsClimbing)
 	{
+		if (OtherController->bIsClimbing)
+		{
+			bIsClimbing = false;
+			OtherController->bIsClimbing = false;
+		}
 		FVector HandControllerDelta = GetActorLocation() - ClimbingStartLocation;
 		GetAttachParentActor()->AddActorWorldOffset(-HandControllerDelta);
 	}
@@ -81,12 +86,6 @@ bool AHandController::CanClimb() const
 	{
 		if (!bCanClimb) { return; }
 
-		if (OtherController->bIsClimbing) 
-		{ 
-			OtherController->bIsClimbing = false;
-			return;
-		}
-		
 		if (!bIsClimbing)
 		{
 		bIsClimbing = true;
