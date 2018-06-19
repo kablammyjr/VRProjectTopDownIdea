@@ -81,12 +81,16 @@ bool AHandController::CanClimb() const
 	{
 		if (!bCanClimb) { return; }
 
+		if (OtherController->bIsClimbing) 
+		{ 
+			OtherController->bIsClimbing = false;
+			return;
+		}
+		
 		if (!bIsClimbing)
 		{
 		bIsClimbing = true;
 		ClimbingStartLocation = GetActorLocation();
-
-		OtherController->bIsClimbing = false;
 		}
 	}
 
