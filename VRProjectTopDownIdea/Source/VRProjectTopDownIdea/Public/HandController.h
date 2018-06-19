@@ -18,6 +18,7 @@ public:
 	AHandController();
 
 	void SetHand(EControllerHand Hand) { MotionController->SetTrackingSource(Hand); }
+	void PairController(AHandController* Controller);
 
 	void Grip();
 
@@ -55,6 +56,8 @@ private:
 	bool bIsClimbing = false;
 
 	FVector ClimbingStartLocation;
+
+	AHandController* OtherController;
 	
 
 };

@@ -3,6 +3,8 @@
 #include "HandController.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "MotionControllerComponent.h"
 
 // Sets default values
@@ -85,13 +87,36 @@ bool AHandController::CanClimb() const
 		{
 		bIsClimbing = true;
 		ClimbingStartLocation = GetActorLocation();
+
+		OtherController->bIsClimbing = false;
+
+		ACharacter* Character = Cast<ACharacter>(GetAttachParentActor());
+		if (Character != nullptr)
+		{
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+		}
 		}
 	}
 
 	void AHandController::Release()
 	{
-		UE_LOG(LogTemp, Warning, TEXT("release"))
+		if (bIsClimbing)
+		{
 		bIsClimbing = false;
+
+		ACharacter* Character = Cast<ACharacter>(GetAttachParentActor());
+		if (Character != nullptr)
+		{
+			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+		}
+		}
+		
+	}
+
+	void AHandController::PairController(AHandController* Controller)
+	{
+		OtherController = Controller;
+		OtherController->OtherController = this;
 	}
 
 
