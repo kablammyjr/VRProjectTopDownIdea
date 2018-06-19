@@ -65,5 +65,10 @@ void AVRPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAction(TEXT("GripLeft"), IE_Pressed, this, &AVRPlayerCharacter::GripLeft);
+	PlayerInputComponent->BindAction(TEXT("GripLeft"), IE_Released, this, &AVRPlayerCharacter::ReleaseLeft);
+	PlayerInputComponent->BindAction(TEXT("GripRight"), IE_Pressed, this, &AVRPlayerCharacter::GripRight);
+	PlayerInputComponent->BindAction(TEXT("GripRight"), IE_Released, this, &AVRPlayerCharacter::ReleaseRight);
+
 }
 

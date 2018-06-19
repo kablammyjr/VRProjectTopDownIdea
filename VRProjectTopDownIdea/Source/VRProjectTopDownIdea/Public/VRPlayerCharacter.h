@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "HandController.h"
+#include "MotionControllerComponent.h"
 #include "VRPlayerCharacter.generated.h"
 
 UCLASS()
@@ -27,6 +28,12 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void GripLeft() { LeftController->Grip(); }
+	void ReleaseLeft() { LeftController->Release(); }
+
+	void GripRight() { RightController->Grip(); }
+	void ReleaseRight() { RightController->Release(); }
+
 private:
 
 	UPROPERTY()
@@ -36,10 +43,10 @@ private:
 	class USceneComponent* VRRoot;
 
 	UPROPERTY()
-	class AHandController* LeftController;
+	AHandController* LeftController;
 
 	UPROPERTY()
-	class AHandController* RightController;
+	AHandController* RightController;
 
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<AHandController> HandControllerClass;

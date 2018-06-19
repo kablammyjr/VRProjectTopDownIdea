@@ -29,6 +29,13 @@ void AHandController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (bIsClimbing)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("isclimbing"))
+		FVector HandControllerDelta = GetActorLocation() - ClimbingStartLocation;
+		GetAttachParentActor()->AddActorWorldOffset(-HandControllerDelta);
+	}
+
 }
 
 void AHandController::ActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
@@ -45,7 +52,6 @@ void AHandController::ActorBeginOverlap(AActor* OverlappedActor, AActor* OtherAc
 				Controller->PlayHapticEffect(HapticEffect, MotionController->GetTrackingSource());
 			}
 		}
-
 	}
 	bCanClimb = bNewCanClimb;
 }
@@ -69,4 +75,23 @@ bool AHandController::CanClimb() const
 
 	return false;
 }
+
+	void AHandController::Grip()
+	{
+		UE_LOG (LogTemp, Warning, TEXT("grip"))
+		if (!bCanClimb) { return; }
+
+		if (!bIsClimbing)
+		{
+		bIsClimbing = true;
+		ClimbingStartLocation = GetActorLocation();
+		}
+	}
+
+	void AHandController::Release()
+	{
+		UE_LOG(LogTemp, Warning, TEXT("release"))
+		bIsClimbing = false;
+	}
+
 
