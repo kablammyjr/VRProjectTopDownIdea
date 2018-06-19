@@ -28,9 +28,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
-	
+
+	UPROPERTY()
 	class UCameraComponent* Camera;
 
+	UPROPERTY()
 	class USceneComponent* VRRoot;
 
 	UPROPERTY()

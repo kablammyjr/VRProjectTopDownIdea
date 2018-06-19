@@ -35,6 +35,7 @@ void AVRPlayerCharacter::BeginPlay()
 	LeftController = GetWorld()->SpawnActor<AHandController>(HandControllerClass);
 	if (LeftController != nullptr)
 	{
+		UE_LOG (LogTemp, Warning, TEXT("left"))
 		LeftController->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
 		LeftController->SetHand(EControllerHand::Left);
 	}
@@ -42,6 +43,7 @@ void AVRPlayerCharacter::BeginPlay()
 	RightController = GetWorld()->SpawnActor<AHandController>(HandControllerClass);
 	if (RightController != nullptr)
 	{
+		UE_LOG (LogTemp, Warning, TEXT("right"))
 		RightController->AttachToComponent(VRRoot, FAttachmentTransformRules::KeepRelativeTransform);
 		RightController->SetHand(EControllerHand::Right);
 	}
