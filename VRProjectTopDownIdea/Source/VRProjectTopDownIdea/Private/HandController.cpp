@@ -33,7 +33,6 @@ void AHandController::Tick(float DeltaTime)
 
 	if (bIsClimbing)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("isclimbing"))
 		FVector HandControllerDelta = GetActorLocation() - ClimbingStartLocation;
 		GetAttachParentActor()->AddActorWorldOffset(-HandControllerDelta);
 	}
@@ -80,7 +79,6 @@ bool AHandController::CanClimb() const
 
 	void AHandController::Grip()
 	{
-		UE_LOG (LogTemp, Warning, TEXT("grip"))
 		if (!bCanClimb) { return; }
 
 		if (!bIsClimbing)
@@ -89,12 +87,6 @@ bool AHandController::CanClimb() const
 		ClimbingStartLocation = GetActorLocation();
 
 		OtherController->bIsClimbing = false;
-
-		ACharacter* Character = Cast<ACharacter>(GetAttachParentActor());
-		if (Character != nullptr)
-		{
-			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
-		}
 		}
 	}
 
@@ -103,12 +95,6 @@ bool AHandController::CanClimb() const
 		if (bIsClimbing)
 		{
 		bIsClimbing = false;
-
-		ACharacter* Character = Cast<ACharacter>(GetAttachParentActor());
-		if (Character != nullptr)
-		{
-			Character->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
-		}
 		}
 		
 	}
